@@ -64,3 +64,44 @@ body {
   align-items: flex-start;
 }
 
+.myCol_ {
+  display: flex;
+  flex-direction: column;
+}
+
+.imgHead {
+  height: 100px;
+  width: 100px;
+}
+
+.signedInUser {
+  display: flex;
+}
+
+.importBtn {
+  cursor: pointer;
+}
+
+.importBtn:hover {
+  color: #dc143c;
+}
+
+.messageUnsigned {
+  font-size: 24px;
+  font-weight: bolder;
+  color: var(--primaryAccent);
+}
+
+@media screen and (max-width: 800px) {
+  .messageUnsigned {
+    font-size: 30px;
+  }
+
+  .imgSignIn {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    height: 75%;
+  }
+}
+

@@ -152,14 +152,15 @@ class App extends React.Component {
   }
 
   handleSignInSuccess = (response) => {
+
+    console.log(response);
     axios.post("/api/googlesignin", { tokenId: response.tokenId })
       .then(response => {
-        console.log(response);
-        const { name, picture, email } = response.data;
+        const { name, picture, email, accessToken } = response.data;
         this.setState({
-          authState: { name, picture, email, _id: email }
+          authState: { name, picture, email, _id: email, at: accessToken }
         })
-        this.setAuthState({ name, picture, email, _id: email })
+        this.setAuthState({ name, picture, email, _id: email, at: accessToken })
       })
   }
 

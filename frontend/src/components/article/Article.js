@@ -3,6 +3,7 @@ import './Article.css';
 import Skeleton from 'react-loading-skeleton';
 import ReactPlayer from "react-player";
 import Paragraph from './Paragraph';
+import { ReactPictureGrid } from 'react-picture-grid';
 
 const Article = ({ loadNews, authState, newsLoad, editorLoad, currentNews, removeNews }) => {
 
@@ -26,7 +27,7 @@ const Article = ({ loadNews, authState, newsLoad, editorLoad, currentNews, remov
 
     return (
         <div style={{ display: loadNews }} className="article">
-            {(currentNews && currentNews !== undefined) ? (
+            {(currentNews && currentNews !== '') ? (
                 <>
                     <div className="myRow pt-2">
                         <div className="myRow_">
@@ -50,6 +51,13 @@ const Article = ({ loadNews, authState, newsLoad, editorLoad, currentNews, remov
                                 <Paragraph key={i} content={nb} />
                             )
                         })}
+                    </div>
+                    <h3 className="pt-1 title">Images</h3>
+                    <div className="imageHolder">
+                        {currentNews && currentNews !== null ? (
+                            ((currentNews.images) !== null && currentNews.images.length > 0)
+                                ? <ReactPictureGrid data={(currentNews.images).map((i) => ({ image: i, title: i, description: i }))} gap={1} /> : null
+                        ) : null}
                     </div>
                     <div className="myRow mt-20">
                         <button className="center" onClick={goBack}>{'BACK' || <Skeleton amount={10} />}</button>

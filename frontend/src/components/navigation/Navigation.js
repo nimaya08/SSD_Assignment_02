@@ -24,8 +24,8 @@ const Navigation = (props) => {
                 <a href="#search" className="link"><h5 className="fp navItem">SEARCH</h5></a>
                 <h5 className="fp navItem">|</h5>
                 {(!authState) ?
-                    <a href="#signIn" className="link">
-                        <h5 onClick={(e) => handleClick(e)} id="signinlink" className="fp navItem">SIGN IN</h5>
+                    <a href="#signUp" className="link">
+                        <h5 onClick={(e) => handleClick(e)} id="signuplink" className="fp navItem">SIGN IN</h5>
                     </a>
                     :
                     <a href="#signIn" className="link">
