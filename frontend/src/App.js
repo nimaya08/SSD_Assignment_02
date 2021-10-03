@@ -17,7 +17,7 @@ class App extends React.Component {
     newslist: [],
     loadNews: false,
     loadEditor: false,
-    currentNews: null,
+    currentNews: '',
     authState: '',
     imgs: [],
     paras: [],
@@ -145,12 +145,35 @@ class App extends React.Component {
   render() {
     return (
       <div className="container">
-        <Navigation title={this.state.title} authState={this.state.authState} clearAuthState={this.clearAuthState} />
-        <NewsList newslist={this.state.newslist} loadNews={!this.state.loadNews} newsLoad={this.newsLoad} loadEditor={this.state.loadEditor} />
-        {/* <Article loadNews={this.state.loadNews} currentNews={this.state.currentNews} newsLoad={this.newsLoad} editorLoad={this.editorLoad} authState={this.state.authState} removeNews={this.removeNews} /> */}
-        <Editor loadEditor={this.state.loadEditor} addArrays={this.addArrays} paras={this.state.paras} imgs={this.state.imgs} cats={this.state.cats} plats={this.state.plats} authState={this.state.authState} refreshNewsList={this.refreshNewsList} />
-        <SignIn setAuthState={this.setAuthState} authState={this.state.authState} />
-        <SignUp setAuthState={this.setAuthState} authState={this.state.authState} />
+        <Navigation
+          title={this.state.title}
+          authState={this.state.authState}
+          clearAuthState={this.clearAuthState} />
+        <NewsList
+          newslist={this.state.newslist}
+          loadNews={!this.state.loadNews}
+          newsLoad={this.newsLoad}
+          loadEditor={this.state.loadEditor} />
+        <Article loadNews={this.state.loadNews}
+          currentNews={this.state.currentNews}
+          newsLoad={this.newsLoad} editorLoad={this.editorLoad}
+          authState={this.state.authState}
+          removeNews={this.removeNews} />
+        <Editor
+          loadEditor={this.state.loadEditor}
+          addArrays={this.addArrays}
+          paras={this.state.paras}
+          imgs={this.state.imgs}
+          cats={this.state.cats}
+          plats={this.state.plats}
+          authState={this.state.authState}
+          refreshNewsList={this.refreshNewsList} />
+        <SignIn
+          setAuthState={this.setAuthState}
+          authState={this.state.authState} />
+        <SignUp
+          setAuthState={this.setAuthState}
+          authState={this.state.authState} />
         <Search searchNews={this.searchNews} />
       </div>
     );

@@ -13,12 +13,12 @@ const auth = require('./routes/api/auth')
 
 // post & encoding
 app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }))
 
 // mongodb connect
 const uri = keys.mongoURI;
-mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true}, (err,db) => {
-    console.log('GameNEWS online...', uri);
+mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }, (err, db) => {
+    console.log('GameNEWS online...');
 });
 
 // routing

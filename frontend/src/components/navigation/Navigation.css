@@ -23,3 +23,10 @@
     text-decoration: none;
     color: var(--primaryAccent);
 }
+
+@media screen and (max-width: 800px) {
+    .navigation {
+      display: flex;
+      flex-direction: column;
+    }
+  }
