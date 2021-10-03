@@ -1,0 +1,37 @@
+.signIn {
+    margin: 55vh 0 0 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.signIn .title {
+    color: var(--primaryAccent);
+    text-align: center;
+}
+
+.signIn .body {
+    width: 50vw;
+}
+
+/**/
+
+.signUp {
+    margin: 55vh 0 0 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.signUp .title {
+    color: var(--primaryAccent);
+    text-align: center;
+}
+
+.signUp .body {
+    width: 50vw;
+}

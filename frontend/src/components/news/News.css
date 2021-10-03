@@ -1,0 +1,31 @@
+.news {
+    margin: 3vh 0 3vh 0;
+    max-height: 30vh;
+}
+
+.news .newsImg {
+    width: 120px;
+    height: 120px;
+    background-size: cover;
+    background-position: center;
+}
+
+.news .newsRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.news .rating {
+    padding: .25vh 1vh .25vh 1vh;
+    border-radius: 1vh;
+    background-color: var(--primaryAccent);
+    color: var(--primaryLight);
+    width: max-content;
+    height: max-content;
+    text-align: center;
+}
+
+.news .newsTagline {
+    color: var(--secondaryDark);
+}

@@ -1,0 +1,33 @@
+.editor .title {
+    color: var(--primaryAccent);
+}
+
+.editor .trailer {
+    justify-content: center;
+}
+
+.editor .subtitle {
+    justify-content: center;
+}
+
+.editor .center {
+    text-align: center;
+}
+
+.editor .special {
+    color: var(--primaryAccent);
+}
+
+.editor .warningS {
+    background-color: var(--primaryAccent);
+    color: var(--primaryLight);
+    padding: .25vh 2vh .25vh 2vh;
+    border-radius: 2vh;
+}
+
+.editor .warningF {
+    background-color: var(--primaryDark);
+    color: var(--primaryLight);
+    padding: .25vh 2vh .25vh 2vh;
+    border-radius: 2vh;
+}

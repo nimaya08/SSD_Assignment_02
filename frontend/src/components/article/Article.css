@@ -1,0 +1,15 @@
+.article .title {
+    color: var(--primaryAccent);
+}
+
+.article .trailer {
+    justify-content: center;
+}
+
+.article .subtitle {
+    justify-content: center;
+}
+
+.article .center {
+    text-align: center;
+}
