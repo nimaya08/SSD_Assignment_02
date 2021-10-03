@@ -1,15 +1,17 @@
+import "dotenv-defaults/config";
 import React from 'react';
 import './App.css';
 import axios from 'axios';
+import GoogleLogin from 'react-google-login'
 
 // components import
 import Navigation from './components/navigation/Navigation';
 import NewsList from './components/newslist/NewsList';
 import Article from './components/article/Article';
 import Editor from './components/editor/Editor';
-import SignIn from './components/sign/SignIn';
-import SignUp from './components/sign/SignUp';
 import Search from './components/search/Search';
+
+import { CLIENT_ID } from "./components/configs/keys";
 
 class App extends React.Component {
   state = {
@@ -63,7 +65,6 @@ class App extends React.Component {
   }
 
   addArrays = (context, content) => {
-    // console.log(context+ " "+content)
     switch (context) {
       case 'paras':
         this.setState({
@@ -91,28 +92,36 @@ class App extends React.Component {
   }
 
   setAuthState = (gnu) => {
-    localStorage.setItem('GameNEWS_user', gnu);
+    localStorage.setItem('GameNEWS_user', JSON.stringify(gnu));
     this.checkAuthState();
   }
 
   checkAuthState = async () => {
     const user = localStorage.getItem('GameNEWS_user');
     if (user) {
-      await axios.get('/api/auth/user', { headers: { 'x-auth-token': user } })
-        .then(res => {
-          this.setState({
-            authState: res.data
-          })
+      try {
+        this.setState({
+          authState: JSON.parse(user)
         })
-
-      // console.log(this.state.authState);
+      } catch (error) {
+        console.log(error);
+      }
+      console.log(this.state.authState);
     }
   }
 
   clearAuthState = () => {
     localStorage.removeItem('GameNEWS_user');
     this.setState({
-      authState: null
+      newslist: [],
+      loadNews: false,
+      loadEditor: false,
+      currentNews: '',
+      authState: '',
+      imgs: [],
+      paras: [],
+      cats: [],
+      plats: []
     })
   }
 
@@ -142,6 +151,22 @@ class App extends React.Component {
       })
   }
 
+  handleSignInSuccess = (response) => {
+    console.log(response);
+    axios.post("/api/googlesignin", { tokenId: response.tokenId })
+      .then(response => {
+        const { name, picture, email, accessToken } = response.data;
+        this.setState({
+          authState: { name, picture, email, _id: email, at: accessToken }
+        })
+        this.setAuthState({ name, picture, email, _id: email, at: accessToken })
+      })
+  }
+
+  handleSignInError = (response) => {
+    console.log(response);
+  }
+
   render() {
     return (
       <div className="container">
@@ -169,13 +194,25 @@ class App extends React.Component {
           plats={this.state.plats}
           authState={this.state.authState}
           refreshNewsList={this.refreshNewsList} />
-        <SignIn
-          setAuthState={this.setAuthState}
-          authState={this.state.authState} />
-        <SignUp
-          setAuthState={this.setAuthState}
-          authState={this.state.authState} />
         <Search searchNews={this.searchNews} />
+        <div className="signedInUser">
+          <img className="imgHead mr-2" src={(this.state.authState && this.state.authState !== '')
+            ? `${this.state.authState.picture}` : "./images/gn_1.jpg"} alt="dp" />
+          <div className="myCol_">
+            <h3>{(this.state.authState && this.state.authState !== '')
+              ? `${this.state.authState.name}` : "Ellie"}</h3>
+            <h5>{(this.state.authState && this.state.authState !== '')
+              ? `${this.state.authState.email}` : "Last of Us"}</h5>
+          </div>
+        </div>
+        <div id="signUp">
+          <GoogleLogin
+            clientId={CLIENT_ID}
+            buttonText="Sign in with Google"
+            onSuccess={this.handleSignInSuccess}
+            onFailure={this.handleSignInError}
+            cookiePolicy={'single_host_origin'} />
+        </div>
       </div>
     );
   }
