@@ -18,15 +18,15 @@ const Editor = (props) => {
     let msgB = 'Article Not Added';
     let msg = null;
 
-    if(loadEditor)
+    if (loadEditor)
         loadEditor = 'block'
     else
         loadEditor = 'none'
 
-    const handleAddClick = (e,cx) => {
+    const handleAddClick = (e, cx) => {
         e.preventDefault();
         let ct = '';
-        switch(cx) {
+        switch (cx) {
             case 'paras':
                 ct = document.querySelector('#gBody').value
                 break;
@@ -42,7 +42,7 @@ const Editor = (props) => {
             default:
                 break;
         }
-        addArrays(cx,ct);
+        addArrays(cx, ct);
     }
 
     const handleSubmit = async (e) => {
@@ -60,27 +60,27 @@ const Editor = (props) => {
         let platforms = plats;
         let body = paras;
 
-        await axios.post('/api/news', {title, subtitle, trailer, by, userId, tagline, rating, images, categories, platforms, body})
-        .then(news => {
-            msg = React.createElement('p', {className: "warningS"}, msgA);
-            ReactDOM.render(
-                msg,
-                document.querySelector('#messageContainer')
-            );
-            // add to newslist
-            refreshNewsList();
-        })
-        .catch(err => {
-            msg = React.createElement('p', {className: "warningF"}, msgB);
-            ReactDOM.render(
-                msg,
-                document.querySelector('#messageContainer')
-            );
-        })
+        await axios.post('/api/news', { title, subtitle, trailer, by, userId, tagline, rating, images, categories, platforms, body })
+            .then(news => {
+                msg = React.createElement('p', { className: "warningS" }, msgA);
+                ReactDOM.render(
+                    msg,
+                    document.querySelector('#messageContainer')
+                );
+                // add to newslist
+                refreshNewsList();
+            })
+            .catch(err => {
+                msg = React.createElement('p', { className: "warningF" }, msgB);
+                ReactDOM.render(
+                    msg,
+                    document.querySelector('#messageContainer')
+                );
+            })
     }
 
     return (
-        <div style={{display: loadEditor}} className="editor">
+        <div style={{ display: loadEditor }} className="editor">
             <h3 className="pt-2 title fs">{'Editor' || <Skeleton amount={10} />}</h3>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div className="row pt-2">
@@ -100,8 +100,8 @@ const Editor = (props) => {
                     </div>
                     <div className="gBy six columns">
                         <label htmlFor="gBy">Enter your name</label>
-                        <input className="u-full-width" type="text" placeholder="Enter Editor..." defaultValue={authState?.name} id="gBy" 
-                        required />
+                        <input className="u-full-width" type="text" placeholder="Enter Editor..." defaultValue={authState.name} id="gBy"
+                            required />
                     </div>
                 </div>
                 <div className="row pt-2">
@@ -138,21 +138,21 @@ const Editor = (props) => {
                     <div className="gImgs four columns">
                         <label htmlFor="gImgs">Add Images</label>
                         <input type="text" className="u-full-width" placeholder="Enter image link and press plus sign..." id="gImgs" />
-                        <button type="button" onClick={(e) => handleAddClick(e,'imgs')} className="u-full-width">
+                        <button type="button" onClick={(e) => handleAddClick(e, 'imgs')} className="u-full-width">
                             <i className="fa fa-plus"></i>
                         </button>
                     </div>
                     <div className="gCats four columns">
                         <label htmlFor="gCats">Add Categories</label>
                         <input type="text" className="u-full-width" placeholder="Enter category and press plus sign..." id="gCats" />
-                        <button type="button" onClick={(e) => handleAddClick(e,'cats')} className="u-full-width">
+                        <button type="button" onClick={(e) => handleAddClick(e, 'cats')} className="u-full-width">
                             <i className="fa fa-plus"></i>
                         </button>
                     </div>
                     <div className="gPlats four columns">
                         <label htmlFor="gPlats">Add Platforms</label>
                         <input type="text" className="u-full-width" placeholder="Enter image link and press plus sign..." id="gPlats" />
-                        <button type="button" onClick={(e) => handleAddClick(e,'plats')} className="u-full-width">
+                        <button type="button" onClick={(e) => handleAddClick(e, 'plats')} className="u-full-width">
                             <i className="fa fa-plus"></i>
                         </button>
                     </div>
@@ -161,7 +161,7 @@ const Editor = (props) => {
                     <div className="gBody twelve columns">
                         <label htmlFor="gBody">Add Content</label>
                         <textarea className="u-full-width" placeholder="Enter paragraph and press plus sign..." id="gBody"></textarea>
-                        <button type="button" onClick={(e) => handleAddClick(e,'paras')} className="u-full-width">
+                        <button type="button" onClick={(e) => handleAddClick(e, 'paras')} className="u-full-width">
                             <i className="fa fa-plus"></i>
                         </button>
                     </div>
@@ -176,25 +176,25 @@ const Editor = (props) => {
             </form>
             <div className="details pt-2">
                 <h5>images</h5>
-                {imgs.map( (img,i) => {
+                {imgs.map((img, i) => {
                     return (
                         <p className="special" key={i}>{img}</p>
                     )
                 })}
                 <h5>categories</h5>
-                {cats.map( (cat,i) => {
+                {cats.map((cat, i) => {
                     return (
                         <p className="special" key={i}>{cat}</p>
                     )
                 })}
                 <h5>platforms</h5>
-                {plats.map( (plat,i) => {
+                {plats.map((plat, i) => {
                     return (
                         <p className="special" key={i}>{plat}</p>
                     )
                 })}
                 <h5>paragraphs</h5>
-                {paras.map( (para,i) => {
+                {paras.map((para, i) => {
                     return (
                         <p className="special" key={i}>{para}</p>
                     )

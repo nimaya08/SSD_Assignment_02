@@ -28,33 +28,33 @@ class App extends React.Component {
   componentDidMount = () => {
     // load some
     axios.get('/api/news/10')
-    .then(res => {
-      this.setState({
-        newslist: res.data
+      .then(res => {
+        this.setState({
+          newslist: res.data
+        })
       })
-    })
 
     // load authState
     this.checkAuthState()
   }
-  
+
   getNews = async (id) => {
-    await axios.get('/api/news/getNews/' +id)
-    .then(res => {
-      this.setState({
-        currentNews: res.data
+    await axios.get('/api/news/getNews/' + id)
+      .then(res => {
+        this.setState({
+          currentNews: res.data
+        })
       })
-    })
   }
 
-  newsLoad = async (ofState,id) => {
+  newsLoad = async (ofState, id) => {
     await this.getNews(id)
     this.setState({
       loadNews: ofState
     })
   }
 
-  editorLoad = async (ofState,id) => {
+  editorLoad = async (ofState, id) => {
     this.setState({
       loadNews: ofState,
       loadEditor: !ofState
@@ -62,12 +62,12 @@ class App extends React.Component {
     await this.getNews(id)
   }
 
-  addArrays = (context,content) => {
+  addArrays = (context, content) => {
     // console.log(context+ " "+content)
-    switch(context) {
+    switch (context) {
       case 'paras':
         this.setState({
-          paras: [...this.state.paras,content]
+          paras: [...this.state.paras, content]
         })
         break;
       case 'imgs':
@@ -97,13 +97,13 @@ class App extends React.Component {
 
   checkAuthState = async () => {
     const user = localStorage.getItem('GameNEWS_user');
-    if(user) {
-      await axios.get('/api/auth/user', { headers: {'x-auth-token': user} })
-      .then(res => {
-        this.setState({
-          authState: res.data
+    if (user) {
+      await axios.get('/api/auth/user', { headers: { 'x-auth-token': user } })
+        .then(res => {
+          this.setState({
+            authState: res.data
+          })
         })
-      })
 
       // console.log(this.state.authState);
     }
@@ -118,40 +118,40 @@ class App extends React.Component {
 
   refreshNewsList = async () => {
     await axios.get('/api/news/get')
-    .then(res => {
-      this.setState({
-        newslist: res.data
+      .then(res => {
+        this.setState({
+          newslist: res.data
+        })
       })
-    })
   }
 
   removeNews = async (id) => {
-    await axios.delete('/api/news/'+id)
-    .then(res => {
-      if(res.data.success)
-        this.refreshNewsList();
-    })
+    await axios.delete('/api/news/' + id)
+      .then(res => {
+        if (res.data.success)
+          this.refreshNewsList();
+      })
   }
 
   searchNews = async (keyword) => {
-    await axios.post('/api/news/search', {keyword})
-    .then(news => {
-      this.setState({
-        newslist: news.data
+    await axios.post('/api/news/search', { keyword })
+      .then(news => {
+        this.setState({
+          newslist: news.data
+        })
       })
-    })
   }
 
   render() {
     return (
       <div className="container">
-          <Navigation title={this.state.title} authState={this.state.authState} clearAuthState={this.clearAuthState} />
-          <NewsList newslist={this.state.newslist} loadNews={!this.state.loadNews} newsLoad={this.newsLoad} loadEditor={this.state.loadEditor} />
-          <Article loadNews={this.state.loadNews} currentNews={this.state.currentNews} newsLoad={this.newsLoad} editorLoad={this.editorLoad} authState={this.state.authState} removeNews={this.removeNews} />
-          <Editor loadEditor={this.state.loadEditor} addArrays={this.addArrays} paras={this.state.paras} imgs={this.state.imgs} cats={this.state.cats} plats={this.state.plats} authState={this.state.authState} refreshNewsList={this.refreshNewsList} />
-          <SignIn setAuthState={this.setAuthState} authState={this.state.authState} />
-          <SignUp setAuthState={this.setAuthState} authState={this.state.authState} />
-          <Search searchNews={this.searchNews} />
+        <Navigation title={this.state.title} authState={this.state.authState} clearAuthState={this.clearAuthState} />
+        <NewsList newslist={this.state.newslist} loadNews={!this.state.loadNews} newsLoad={this.newsLoad} loadEditor={this.state.loadEditor} />
+        {/* <Article loadNews={this.state.loadNews} currentNews={this.state.currentNews} newsLoad={this.newsLoad} editorLoad={this.editorLoad} authState={this.state.authState} removeNews={this.removeNews} /> */}
+        <Editor loadEditor={this.state.loadEditor} addArrays={this.addArrays} paras={this.state.paras} imgs={this.state.imgs} cats={this.state.cats} plats={this.state.plats} authState={this.state.authState} refreshNewsList={this.refreshNewsList} />
+        <SignIn setAuthState={this.setAuthState} authState={this.state.authState} />
+        <SignUp setAuthState={this.setAuthState} authState={this.state.authState} />
+        <Search searchNews={this.searchNews} />
       </div>
     );
   }
