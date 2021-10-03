@@ -138,7 +138,7 @@ const Editor = (props) => {
                         </div>
                         <div className="row pt-2">
                             <div className="gImgs four columns">
-                                <label htmlFor="gImgs">Add Images</label>
+                                <label htmlFor="gImgs">Add Images (1x1)</label>
                                 <input type="text" className="u-full-width" placeholder="Enter image link and press plus sign..." id="gImgs" />
                                 <button type="button" onClick={(e) => handleAddClick(e, 'imgs')} className="u-full-width">
                                     <i className="fa fa-plus"></i>

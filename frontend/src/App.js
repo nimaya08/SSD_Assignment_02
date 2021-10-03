@@ -156,7 +156,8 @@ class App extends React.Component {
           loadEditor={this.state.loadEditor} />
         <Article loadNews={this.state.loadNews}
           currentNews={this.state.currentNews}
-          newsLoad={this.newsLoad} editorLoad={this.editorLoad}
+          newsLoad={this.newsLoad}
+          editorLoad={this.editorLoad}
           authState={this.state.authState}
           removeNews={this.removeNews} />
         <Editor

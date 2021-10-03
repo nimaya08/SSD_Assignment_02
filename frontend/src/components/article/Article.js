@@ -29,7 +29,13 @@ const Article = ({ loadNews, authState, newsLoad, editorLoad, currentNews, remov
             {(currentNews && currentNews !== undefined) ? (
                 <>
                     <div className="myRow pt-2">
-                        <h3 className="title fs">{currentNews.title || <Skeleton amount={10} />}</h3>
+                        <div className="myRow_">
+                            {currentNews && currentNews !== null ? (
+                                (currentNews.images) !== null && currentNews.images.length > 0
+                                    ? <img className="imageHead" src={currentNews.images[0]} alt="context" /> : null
+                            ) : <Skeleton circle={true} height={100} width={100} />}
+                            <h3 className="title fs">{currentNews.title || <Skeleton amount={10} />}</h3>
+                        </div>
                         <small className="pt-1 fp">{currentNews.by || <Skeleton amount={10} />}</small>
                     </div>
                     <div className="myRow pt-1 trailer">

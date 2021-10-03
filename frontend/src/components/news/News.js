@@ -8,13 +8,18 @@ const News = (props) => {
     const newsLoad = props.newsLoad;
 
     const loadArticle = (id) => {
-        newsLoad(loadNews,id);
+        newsLoad(loadNews, id);
     }
-    
+
     return (
         <div className="row news">
             <div className="two columns">
-                <div className="pt-1 mr-1 newsImg">{<Skeleton circle={true} height={100} width={100} />}</div>
+                <div className="pt-1 mr-1 newsImg">
+                    {news && news !== null ? (
+                        (news.images) !== null && news.images.length > 0
+                            ? <img className="imageHead" src={news.images[0]} alt="context" width="100" height="100" /> : null
+                    ) : <Skeleton circle={true} height={100} width={100} />}
+                </div>
             </div>
             <div className="ten columns">
                 <div className="newsRow">
@@ -27,7 +32,7 @@ const News = (props) => {
                 </div>
                 <div className="newsRow">
                     <button onClick={() => loadArticle(news._id)}>Read</button>
-                    <small className="pt-2 fs">{news.by+" on "+new Date(news.posted).toDateString() || <Skeleton amount={3} />}</small>
+                    <small className="pt-2 fs">{news.by + " on " + new Date(news.posted).toDateString() || <Skeleton amount={3} />}</small>
                 </div>
             </div>
         </div>
