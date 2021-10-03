@@ -40,29 +40,29 @@ server.listen(port, () => {
     console.log('server is listening on port %s', port)
 })
 
-// const keyFile = path.join(__dirname, "credentials.json")
-// const scopes = [
-//   "https://www.googleapis.com/auth/contacts"
-// ]
+const keyFile = path.join(__dirname, "credentials.json")
+const scopes = [
+  "https://www.googleapis.com/auth/contacts"
+]
 
-// const run = async () => {
-//   const { people } = google.people({
-//     version: "v1",
-//     auth: await google.auth.getClient({
-//       keyFile,
-//       scopes
-//     })
-//   })
+const run = async () => {
+  const { people } = google.people({
+    version: "v1",
+    auth: await google.auth.getClient({
+      keyFile,
+      scopes
+    })
+  })
 
-//   const response = await people.connections.list({
-//     resourceName: "people/me",
-//     personFields: "names"
-//   })
+  const response = await people.connections.list({
+    resourceName: "people/me",
+    personFields: "names"
+  })
 
-//   console.log(response)
-// }
+  console.log(response)
+}
 
-// run()
+run()
 
 // function authenticate() {
 //     return gapi.auth2.getAuthInstance()
