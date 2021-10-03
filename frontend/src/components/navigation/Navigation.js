@@ -6,11 +6,11 @@ const Navigation = (props) => {
     const clearAuthState = props.clearAuthState;
 
     let name = '';
-    if(authState)
+    if (authState)
         name = authState.name;
 
     const handleClick = (e) => {
-        if(e.target.id === 'signoutlink')
+        if (e.target.id === 'signoutlink')
             clearAuthState();
     }
 
@@ -23,7 +23,7 @@ const Navigation = (props) => {
                 <a href="/" className="link"><h5 className="fp navItem">NEWS</h5></a>
                 <a href="#search" className="link"><h5 className="fp navItem">SEARCH</h5></a>
                 <h5 className="fp navItem">|</h5>
-                {(!authState)?
+                {(!authState) ?
                     <a href="#signIn" className="link">
                         <h5 onClick={(e) => handleClick(e)} id="signinlink" className="fp navItem">SIGN IN</h5>
                     </a>

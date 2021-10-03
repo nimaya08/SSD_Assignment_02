@@ -17,7 +17,7 @@ const Search = (props) => {
 
     return (
         <div className="search" id="search">
-            <form onSubmit={(e) => search(e)} class="myRow pt-2">
+            <form onSubmit={(e) => search(e)} className="myRow pt-2">
                 <input onChange={(e) => handleChange(e)} className="u-full-width" type="text" placeholder="Search..." id="searchInput" />
             </form>
         </div>
