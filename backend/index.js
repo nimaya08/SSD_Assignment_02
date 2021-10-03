@@ -1,6 +1,8 @@
-const keys = require('./config/keys');
+require('dotenv-defaults').config()
+const keys = require('./config/keys')
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')
 const app = express()
 const server = require('http').Server(app);
 const port = process.env.PORT || 5000;
@@ -9,11 +11,12 @@ const port = process.env.PORT || 5000;
 const test = require('./routes/api/test')
 const news = require('./routes/api/news')
 const user = require('./routes/api/user')
-// const auth = require('./routes/api/auth')
-const googlesignin = require('./routes/api/googlesignin')
+const auth = require('./routes/api/auth')
+const google = require('./routes/api/googlesignin')
 
 
 // post & encoding
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
@@ -27,8 +30,8 @@ mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true, useCrea
 app.use('/api/test', test)
 app.use('/api/news', news)
 app.use('/api/user', user)
-// app.use('/api/auth', auth)
-app.use('/api/googlesigin', googlesignin)
+app.use('/api/auth', auth)
+app.use('/api/googlesignin', google)
 
 // make interface
 server.listen(port, () => {
