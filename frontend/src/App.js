@@ -152,6 +152,7 @@ class App extends React.Component {
   }
 
   handleSignInSuccess = (response) => {
+
     console.log(response);
     axios.post("/api/googlesignin", { tokenId: response.tokenId })
       .then(response => {
