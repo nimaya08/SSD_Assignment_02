@@ -9,7 +9,9 @@ const port = process.env.PORT || 5000;
 const test = require('./routes/api/test')
 const news = require('./routes/api/news')
 const user = require('./routes/api/user')
-const auth = require('./routes/api/auth')
+// const auth = require('./routes/api/auth')
+const googlesignin = require('./routes/api/googlesignin')
+
 
 // post & encoding
 app.use(express.json())
@@ -25,7 +27,8 @@ mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true, useCrea
 app.use('/api/test', test)
 app.use('/api/news', news)
 app.use('/api/user', user)
-app.use('/api/auth', auth)
+// app.use('/api/auth', auth)
+app.use('/api/googlesigin', googlesignin)
 
 // make interface
 server.listen(port, () => {
