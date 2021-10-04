@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './Editor.css';
 import Skeleton from 'react-loading-skeleton';
 import axios from 'axios';
+import useDrivePicker from 'react-google-drive-picker';
+import { CLIENT_ID, GDRIVE_API_KEY } from "../configs/keys";
 
 const Editor = (props) => {
+    const [openPicker, data, authResponse] = useDrivePicker();
+
     let loadEditor = props.loadEditor;
     const refreshNewsList = props.refreshNewsList;
     const authState = props.authState;
@@ -79,9 +83,36 @@ const Editor = (props) => {
             })
     }
 
+    useEffect(() => {
+        // do anything with the selected/uploaded files
+        if (data) {
+            data.docs.map(i => console.log(i.name))
+        }
+    }, [data])
+
+    const handleOpenPicker = () => {
+        openPicker({
+            clientId: CLIENT_ID,
+            developerKey: GDRIVE_API_KEY,
+            viewId: "DOCS",
+            token: authState && authState.at,
+            showUploadView: true,
+            showUploadFolders: true,
+            supportDrives: true,
+            multiselect: true,
+            // customViews: customViewsArray, // custom view
+        })
+    }
+
+    const handleImages = (e) => {
+        e.preventDefault();
+        console.log(e);
+        handleOpenPicker();
+    }
+
     return (
         <div className="editor">
-            {(authState && authState !== null) ? (
+            {(authState && authState !== '') ? (
                 <>
                     <h3 className="pt-2 title fs">{'Editor' || <Skeleton amount={10} />}</h3>
                     <form onSubmit={(e) => handleSubmit(e)}>
@@ -138,7 +169,10 @@ const Editor = (props) => {
                         </div>
                         <div className="row pt-2">
                             <div className="gImgs four columns">
-                                <label htmlFor="gImgs">Add Images (1x1)</label>
+                                <div className="myRow">
+                                    <label htmlFor="gImgs">Add Images (1x1)</label>
+                                    <p className="importBtn" onClick={(e) => handleImages(e)}>+GDrive</p>
+                                </div>
                                 <input type="text" className="u-full-width" placeholder="Enter image link and press plus sign..." id="gImgs" />
                                 <button type="button" onClick={(e) => handleAddClick(e, 'imgs')} className="u-full-width">
                                     <i className="fa fa-plus"></i>
@@ -203,7 +237,11 @@ const Editor = (props) => {
                         })}
                     </div>
                 </>
-            ) : null}
+            ) : <>
+                <hr />
+                <h1 className="messageUnsigned">Sign In to Do More 🎮⚽</h1>
+                <img className="imgSignIn" alt="please_sign_in" src="./images/gn_3.svg" />
+            </>}
         </div>
     )
 }
