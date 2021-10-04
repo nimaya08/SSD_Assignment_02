@@ -5,8 +5,9 @@ How to Run?
 * Explore to the project folder (project root is the main folder)
 * Open two separate command panels inside backend and frontend
 * Enter commands below in each 
-  # npm install
-  # npm start
+
+  npm install
+  npm start
   
 * The web-client-application will be opened in port 3000
 * The web-server-application will be opened in port 5000
